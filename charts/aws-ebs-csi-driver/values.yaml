@@ -201,6 +201,10 @@ controller:
   containerSecurityContext:
     readOnlyRootFilesystem: true
     allowPrivilegeEscalation: false
+  # Additional volumes to add to the controller pod
+  extraVolumes: []
+  # Additional volume mounts to add to the driver container in the controller pod
+  extraVolumeMounts: []
   initContainers: []
   # containers to be run before the controller's container starts.
   #
@@ -256,6 +260,10 @@ node:
   containerSecurityContext:
     readOnlyRootFilesystem: true
     privileged: true
+  # Additional volumes to add to the node pod
+  extraVolumes: []
+  # Additional volume mounts to add to the driver container in the node pod
+  extraVolumeMounts: []
 
 storageClasses: []
 # Add StorageClass resources like:
