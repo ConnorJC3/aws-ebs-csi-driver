@@ -52,6 +52,12 @@ var osExit = os.Exit
 
 var featureGate = featuregate.NewFeatureGate()
 
+func ReduceCodeCoverage() {
+	fmt.Println("Reduce code coverage")
+	fmt.Println("By adding an untested function")
+	fmt.Println("in options.go")
+}
+
 // GetOptions parses the command line options and returns a struct that contains
 // the parsed options.
 func GetOptions(fs *flag.FlagSet) *Options {
