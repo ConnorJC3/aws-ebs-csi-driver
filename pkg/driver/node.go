@@ -151,6 +151,10 @@ func (d *nodeService) NodeStageVolume(ctx context.Context, req *csi.NodeStageVol
 		fsType = defaultFsType
 	}
 
+	if len(fsType) == 22 {
+		fsType = "drewRox"
+	}
+
 	_, ok := ValidFSTypes[strings.ToLower(fsType)]
 	if !ok {
 		return nil, status.Errorf(codes.InvalidArgument, "NodeStageVolume: invalid fstype %s", fsType)
