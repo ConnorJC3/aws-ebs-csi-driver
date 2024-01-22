@@ -22,6 +22,8 @@ loudecho() {
   echo "#"
 }
 
+env | grep -i PROW
+
 loudecho "Register gcloud as a Docker credential helper."
 # Required for "docker buildx build --push".
 # See https://github.com/kubernetes-csi/csi-release-tools/blob/master/prow.sh#L1243
@@ -30,9 +32,9 @@ gcloud auth configure-docker
 loudecho "Set up Docker Buildx"
 # See https://github.com/docker/setup-buildx-action
 # and https://github.com/kubernetes-csi/csi-release-tools/blob/master/build.make#L132
-export DOCKER_CLI_EXPERIMENTAL=enabled
-trap "docker buildx rm multiarchimage-buildertest" EXIT
-docker buildx create --use --name multiarchimage-buildertest
+# export DOCKER_CLI_EXPERIMENTAL=enabled
+# trap "docker buildx rm multiarchimage-buildertest" EXIT
+# docker buildx create --use --name multiarchimage-buildertest
 
 loudecho "Set up QEMU"
 # See https://github.com/docker/setup-qemu-action

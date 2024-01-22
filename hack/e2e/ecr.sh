@@ -26,8 +26,8 @@ function ecr_build_and_push() {
   loudecho "Building and pushing test driver image to ${IMAGE_NAME}:${IMAGE_TAG}"
   aws ecr get-login-password --region "${REGION}" | docker login --username AWS --password-stdin "${AWS_ACCOUNT_ID}.dkr.ecr.${REGION}.amazonaws.com"
 
-  # Only setup buildx builder on Prow, allow local users to use docker cache
-  if [ -n "${PROW_JOB_ID:-}" ]; then
+  # Only setup buildx builder in CI, allow local users to use docker cache
+  if [ -n "${PROW_JOB_ID:-}" ] || [ -n "${RUNNING_INSIDE_CLOUDBUILD:-}" ]; then
     trap "docker buildx rm ebs-csi-multiarch-builder" EXIT
     docker buildx create --bootstrap --use --name ebs-csi-multiarch-builder
     docker run --rm --privileged multiarch/qemu-user-static --reset -p yes

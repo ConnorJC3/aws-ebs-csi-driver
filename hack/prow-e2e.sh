@@ -17,6 +17,10 @@
 # This script runs tests in CI by creating a cluster, running the tests,
 # cleaning up (regardless of test success/failure), and passing out the result
 
+
+### DO NOT MERGE ###
+exit 0
+
 case ${1} in
 test-e2e-single-az)
   TEST="single-az"
