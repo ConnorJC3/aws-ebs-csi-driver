@@ -18,7 +18,13 @@ import (
 	"strings"
 	"testing"
 
-	"k8s.io/component-base/metrics/testutil"
+	// HACK: Workaround https://github.com/kubernetes/kubernetes/issues/124687
+	// component-base uses an old version of the Prometheus go client that is incompatible
+	// with modern versions containing bug and security fixes
+	//
+	// TODO: This import should be changed back to "k8s.io/component-base/metrics/testutil"
+	// after Kubernetes v1.31.0 is released
+	"github.com/prometheus/client_golang/prometheus/testutil"
 )
 
 func TestMetricRecorder(t *testing.T) {
