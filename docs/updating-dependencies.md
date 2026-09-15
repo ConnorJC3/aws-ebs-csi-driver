@@ -12,7 +12,7 @@ Before each release, we make a best-effort attempt at updating the following dep
 4. Kubernetes-csi sidecar images the [Helm Chart](../../charts/aws-ebs-csi-driver/values.yaml) + [Kustomize manifests](../../deploy/kubernetes)
 5. Helm test [kubekins image](../../charts/aws-ebs-csi-driver/values.yaml)
 6. gcb-docker-cloud in [cloudbuild.yaml](../../cloudbuild.yaml) 
-7. [hack directory binaries](../../hack/tools/install.sh)
+7. [hack directory binaries](../../hack/tools/tools.yaml)
 8. [CI E2E test configurations](../../hack/e2e/config.sh)
 9. EC2 [attachment limits](../../pkg/cloud/volume_limits.go) for any new instances
 10. `make update` succeeds 
@@ -44,4 +44,3 @@ Alternatively you can create a new PR and just copy the PR description.
 #### Ignore/un-ignore specific dependency upgrades
 
 See [Dependabot documentation](https://docs.github.com/en/code-security/dependabot/working-with-dependabot/managing-pull-requests-for-dependency-updates#managing-dependabot-pull-requests-with-comment-commands)
-

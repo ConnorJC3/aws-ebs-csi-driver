@@ -16,6 +16,10 @@ The `Makefile` has the following dependencies:
 
 All other tools are downloaded for you at runtime.
 
+Tool versions and sources are defined in `hack/tools/tools.yaml`. Downloads,
+Go modules, and Python distributions are verified against
+`hack/tools/tools.lock.yaml`.
+
 ## Building
 
 ### `make cluster/image`
@@ -45,6 +49,13 @@ Performs local verification that other than unit tests (linters, manifest update
 ### `make update`
 
 Updates Kustomize manifests, formatting, and tidies `go.mod`. `make verify` will ensure that `make update` was run by checking if it creates a diff.
+
+### `make bump-tools`
+
+Updates every tool to its latest upstream release and regenerates the tool
+lock file. Python tools use the newest release that supports the local Python
+version. The command rewrites `tools.yaml`, so keep rationale outside that file.
+Review both YAML files before committing the result.
 
 ## Cluster Management
 
