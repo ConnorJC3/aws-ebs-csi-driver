@@ -77,11 +77,10 @@ function install_go() {
 function install_pip() {
   INSTALL_PATH="${1}"
   PACKAGE="${2}"
-  COMMAND="${3}"
 
   source "${INSTALL_PATH}/venv/bin/activate"
-  python3 -m pip install --require-hashes -r ${PACKAGE}
-  cp "$(dirname "${0}")/python-runner.sh" "${INSTALL_PATH}/${COMMAND}"
+  python3 -m pip install -r ${PACKAGE}
+  cp "$(dirname "${0}")/python-runner.sh" "${INSTALL_PATH}/${PACKAGE}"
 }
 
 function install_tar_binary() {
@@ -124,8 +123,8 @@ function install_ct() {
   INSTALL_PATH="${1}"
 
   install_tar_binary "${INSTALL_PATH}" "https://github.com/helm/chart-testing/releases/download/${CT_VERSION}/chart-testing_${CT_VERSION:1}_${OS}_${ARCH}.tar.gz" "ct"
-  install_pip "${INSTALL_PATH}" "${PKG_ROOT}/hack/tools/yamale-requirements.in" "yamale"
-  install_pip "${INSTALL_PATH}" "${PKG_ROOT}/hack/tools/yamllint-requirements.in" "yamllint"
+  install_pip "${INSTALL_PATH}" "yamale"
+  install_pip "${INSTALL_PATH}" "yamllint"
 }
 
 function install_eksctl() {
