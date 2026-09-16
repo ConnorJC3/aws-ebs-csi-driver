@@ -1,4 +1,4 @@
-# Copyright 2025 The Kubernetes Authors.
+# Copyright 2026 The Kubernetes Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -36,6 +36,7 @@ else
 endif
 
 GO_SOURCES=go.mod go.sum $(shell find pkg cmd -type f -name "*.go")
+TOOLS_SOURCES=$(shell find hack/tools -type f -name "*.go")
 
 ALL_OS?=linux windows
 ALL_ARCH_linux?=amd64 arm64
@@ -83,6 +84,10 @@ test/coverage:
 
 .PHONY: tools
 tools: bin/aws bin/ct bin/eksctl bin/ginkgo bin/golangci-lint bin/gomplate bin/helm bin/kops bin/kubetest2 bin/mockgen bin/shfmt
+
+.PHONY: bump-tools
+bump-tools: bin/.tools
+	./bin/.tools bump
 
 .PHONY: update
 update: update/gofix update/gofmt update/golangci-fix update/kustomize update/mockgen update/gomod update/shfmt update/generate-license-header
@@ -256,7 +261,7 @@ endif
 
 .PHONY: security
 security: bin/govulncheck
-	./hack/tools/check-security.sh
+	./hack/check-security.sh
 
 ## CI aliases
 # Targets intended to be executed mostly or only by CI jobs
@@ -327,8 +332,11 @@ helm-chart-push: bin/helm
 ## Tools
 # Tools necessary to perform other targets
 
-bin/%: hack/tools/install.sh hack/tools/python-runner.sh
-	@TOOLS_PATH="$(shell pwd)/bin" ./hack/tools/install.sh $*
+bin/.tools: $(TOOLS_SOURCES) go.mod go.sum | bin
+	go build -buildvcs=false -o $@ ./hack/tools
+
+bin/%: bin/.tools hack/tools/tools.yaml hack/tools/tools.lock.yaml hack/tools/helm-runner.sh hack/tools/python-runner.sh
+	@./bin/.tools install --bin-dir "$(shell pwd)/bin" $*
 
 ## Updaters
 # Automatic generators/formatters for code

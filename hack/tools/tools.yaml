@@ -1,0 +1,94 @@
+# Copyright 2026 The Kubernetes Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the 'License');
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an 'AS IS' BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+tools:
+  aws:
+    version: 2.36.32
+    download:
+      github: aws/aws-cli
+  ct:
+    version: v3.14.0
+    dependencies:
+      - yamale
+      - yamllint
+    download:
+      url: https://github.com/helm/chart-testing/releases/download/{version}/chart-testing_{version_no_v}_{os}_{arch}.tar.gz
+      checksum: https://github.com/helm/chart-testing/releases/download/{version}/checksums.txt
+      path: ct
+      github: helm/chart-testing
+  eksctl:
+    version: v0.230.0
+    download:
+      url: https://github.com/eksctl-io/eksctl/releases/download/{version}/eksctl_{os_title}_{arch}.tar.gz
+      checksum: https://github.com/eksctl-io/eksctl/releases/download/{version}/eksctl_checksums.txt
+      path: eksctl
+      github: eksctl-io/eksctl
+  ginkgo:
+    version: v2.32.1
+    go:
+      package: github.com/onsi/ginkgo/v2/ginkgo
+  golangci-lint:
+    version: v2.13.2
+    download:
+      url: https://github.com/golangci/golangci-lint/releases/download/{version}/golangci-lint-{version_no_v}-{os}-{arch}.tar.gz
+      checksum: https://github.com/golangci/golangci-lint/releases/download/{version}/golangci-lint-{version_no_v}-checksums.txt
+      path: golangci-lint-{version_no_v}-{os}-{arch}/golangci-lint
+      github: golangci/golangci-lint
+  gomplate:
+    version: v5.2.0
+    download:
+      url: https://github.com/hairyhenderson/gomplate/releases/download/{version}/gomplate_{os}-{arch}
+      checksum: https://github.com/hairyhenderson/gomplate/releases/download/{version}/checksums-{version}_sha256.txt
+      github: hairyhenderson/gomplate
+  govulncheck:
+    version: v1.7.0
+    go:
+      package: golang.org/x/vuln/cmd/govulncheck
+  helm:
+    version: v4.2.4
+    download:
+      url: https://get.helm.sh/helm-{version}-{os}-{arch}.tar.gz
+      checksum: '{url}.sha256'
+      path: '{os}-{arch}/helm'
+      github: helm/helm
+  kops:
+    version: v1.37.0-alpha.1
+    download:
+      url: https://github.com/kubernetes/kops/releases/download/{version}/kops-{os}-{arch}
+      checksum: '{url}.sha256'
+      github: kubernetes/kops
+  kubetest2:
+    version: v0.0.0-20260811223918-f64637cff8e4
+    go:
+      package: sigs.k8s.io/kubetest2/...
+  mockgen:
+    version: v1.6.0
+    go:
+      package: github.com/golang/mock/mockgen
+  release-notes:
+    version: v0.21.1
+    go:
+      package: k8s.io/release/cmd/release-notes
+  shfmt:
+    version: v3.13.1
+    go:
+      package: mvdan.cc/sh/v3/cmd/shfmt
+  yamale:
+    version: 6.1.0
+    pypi:
+      package: yamale
+  yamllint:
+    version: 1.37.1
+    pypi:
+      package: yamllint
